@@ -271,18 +271,13 @@ li.open .whybody>div{visibility:visible;transition-delay:0s}
       <p class="b">Preparing your home for professional photography is the single most important step in capturing buyer interest and securing an attractive offer. Let's make your home sparkle.</p>
     </section>
     <section class="slide">
-      <div class="bigtile" style="--t:#FFA99F;--g:#316946"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg></div>
-      <h1>Light, Space, &amp; Flow</h1>
-      <p class="b">Learn how to declutter, maximize natural light, and stage every room to create a warm, inviting atmosphere buyers will fall in love with.</p>
-    </section>
-    <section class="slide">
       <div class="bigtile" style="--t:#316946"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2.5"/><path d="M9 4V3h6v1"/><path d="M8.5 10l1.5 1.5 2.5-3M8.5 16l1.5 1.5 2.5-3M14.5 10.5h2M14.5 16.5h2"/></svg></div>
       <h1>Your Step-by-Step Checklist</h1>
       <p class="b">Track your progress across interior, exterior, pets, and wrap-up tasks so you and your home are 100% camera-ready.</p>
     </section>
   </div>
   <div class="ob-foot">
-    <div class="dots" id="obDots"><i class="on"></i><i></i><i></i></div>
+    <div class="dots" id="obDots"><i class="on"></i><i></i></div>
     <button class="btn" id="obNext" type="button">Continue</button>
   </div>
 </div>
@@ -615,9 +610,9 @@ document.addEventListener('click',function(e){
 
 /* ---------- onboarding ---------- */
 var ob=$('#ob'),track=$('#obTrack'),dots=$$('#obDots i'),nextBtn=$('#obNext'),idx=0;
-function setIdx(i){idx=i;dots.forEach(function(d,n){d.classList.toggle('on',n===i)});nextBtn.textContent=i===2?'Start prepping':'Continue'}
-track.addEventListener('scroll',function(){var i=Math.round(track.scrollLeft/Math.max(1,track.clientWidth));if(i!==idx)setIdx(Math.max(0,Math.min(2,i)))},{passive:true});
-nextBtn.addEventListener('click',function(){if(idx<2)track.scrollTo({left:(idx+1)*track.clientWidth,behavior:reduce?'auto':'smooth'});else finishIntro()});
+function setIdx(i){idx=i;dots.forEach(function(d,n){d.classList.toggle('on',n===i)});nextBtn.textContent=i===dots.length-1?'Start prepping':'Continue'}
+track.addEventListener('scroll',function(){var i=Math.round(track.scrollLeft/Math.max(1,track.clientWidth));if(i!==idx)setIdx(Math.max(0,Math.min(dots.length-1,i)))},{passive:true});
+nextBtn.addEventListener('click',function(){if(idx<dots.length-1)track.scrollTo({left:(idx+1)*track.clientWidth,behavior:reduce?'auto':'smooth'});else finishIntro()});
 $('#obSkip').addEventListener('click',finishIntro);
 function finishIntro(){state.seen=true;save();ob.classList.add('out');setTimeout(function(){ob.hidden=true},500)}
 function openIntro(){ob.hidden=false;ob.classList.remove('out');track.scrollLeft=0;setIdx(0);window.scrollTo(0,0)}
