@@ -56,6 +56,7 @@ button{font:inherit;color:inherit;cursor:pointer;letter-spacing:inherit}
 .lt{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:18px 4px 14px}
 .lt .eyebrow{font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--acc-text,var(--red))}
 .mono{box-shadow:0 0 0 3px var(--pink);border:0;padding:0;font-family:inherit;cursor:pointer;transition:transform .15s}
+.mono svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round}
 .mono:active{transform:scale(.92)}
 .back{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:4px;font-size:17px;color:var(--head);padding:12px 4px 0}
 .back svg{width:12px;height:18px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
@@ -70,8 +71,9 @@ button{font:inherit;color:inherit;cursor:pointer;letter-spacing:inherit}
 
 /* cards + lists */
 .card{background:var(--card);border-radius:20px;box-shadow:var(--shadow)}
-.gh{font-size:13px;font-weight:500;letter-spacing:.02em;text-transform:uppercase;color:var(--muted);margin:26px 16px 8px;display:flex;justify-content:space-between;gap:10px}
-.gh small{font-size:13px;text-transform:none;letter-spacing:0;font-variant-numeric:tabular-nums}
+.gh{font-size:14px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--fg);margin:26px 16px 8px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.gh small{font-size:13px;font-weight:500;color:var(--muted);text-transform:none;letter-spacing:0;font-variant-numeric:tabular-nums}
+.gh .em{margin-right:7px;font-size:16px;letter-spacing:0}
 .list{list-style:none;margin:0;padding:0;background:var(--card);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
 .list>li{position:relative}
 .list>li+li::before{content:"";position:absolute;top:0;left:16px;right:0;height:.5px;background:var(--sep)}
@@ -299,32 +301,32 @@ var ICONS={
   interior:'<path d="M4 12V9a3 3 0 013-3h10a3 3 0 013 3v3"/><path d="M2 12a2 2 0 014 0v3h12v-3a2 2 0 014 0v5H2z"/><path d="M5 17v2M19 17v2"/>',
   exterior:'<circle cx="12" cy="9" r="6"/><path d="M12 15v6M9 21h6"/>',
   pets:'<circle class="f" cx="5.5" cy="11" r="1.8"/><circle class="f" cx="9.5" cy="6.5" r="1.8"/><circle class="f" cx="14.5" cy="6.5" r="1.8"/><circle class="f" cx="18.5" cy="11" r="1.8"/><path d="M12 12c-3 0-5.2 3-5.2 5.4 0 1.8 1.6 2.6 3.2 2.1.8-.3 1.2-.5 2-.5s1.2.2 2 .5c1.6.5 3.2-.3 3.2-2.1C17.2 15 15 12 12 12z"/>',
-  wrap:'<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3M13.5 9.5l2.5 2.5"/>',
+  wrap:'<rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 018 0v3"/>',
   top:'<path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.5 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/>'
 };
 var TILE={cal:['#FFA99F','#316946'],interior:['#E46029','#fff'],exterior:['#316946','#fff'],pets:['#FFA99F','#316946'],wrap:['#C5CCF1','#316946'],top:['#E46029','#fff']};
 var CATS=[
  {key:'interior',num:'01',title:'Interior',sub:'Kitchen, Dining, Bedrooms, Bathrooms',sections:[
-  {t:'Clean & Tidy Up',items:['Thoroughly clean the whole house (vacuum carpets, mop hard floors, wipe down counters, shine windows).','Put all shoes and jackets in closets to showcase storage space.','Remove floor mats and runners in kitchens, bathrooms, and hallways to make floors look larger.']},
-  {t:'Windows & Blinds',items:['Open all window coverings to let in natural light.','Keep horizontal blinds down with blades flat or turned up slightly; keep vertical blinds fully open.']},
-  {t:'Lighting',items:['Turn on every ceiling light, floor lamp, and table lamp in the house.','Replace burned-out light bulbs across all rooms.','Ensure bulbs match in temperature (avoid mixing incandescent and fluorescent).']},
-  {t:'Turn Off Screens',items:['Turn OFF all active TVs, computer screens, and monitors to prevent HDR blur and protect privacy.','Turn off anything that moves, such as ceiling fans.']},
-  {t:'Kitchen & Dining Room',items:['Clear and clean kitchen counters (leave only a few decorative items).','Empty sink, load dishwasher, take out trash, and hide garbage cans in pantry or closet.','Remove magnets, notes, and pictures from the refrigerator.']},
-  {t:'Bedrooms',items:['Make and decorate all beds with clean sheets and neutral/coordinating blankets and pillows.','Remove personal photos and replace with neutral art or nature photos.','Clear nightstands and dressers down to a lamp and one decoration.']},
-  {t:'Bathrooms',items:['Create a spa-like atmosphere by clearing countertops of all personal items (toothbrushes, medications, deodorants).','Remove all soaps, razors, and loofahs from showers and tubs.','Hang crisp, clean towels and put toilet seats down with a fresh roll of toilet paper.','Organize closets by folding, hanging, and sorting by color.']}
+  {t:'Clean & Tidy Up',e:'🧹',items:['Thoroughly clean the whole house (vacuum carpets, mop hard floors, wipe down counters, shine windows).','Put all shoes and jackets in closets to showcase storage space.','Remove floor mats and runners in kitchens, bathrooms, and hallways to make floors look larger.']},
+  {t:'Windows & Blinds',e:'🪟',items:['Open all window coverings to let in natural light.','Keep horizontal blinds down with blades flat or turned up slightly; keep vertical blinds fully open.']},
+  {t:'Lighting',e:'💡',items:['Turn on every ceiling light, floor lamp, and table lamp in the house.','Replace burned-out light bulbs across all rooms.','Ensure bulbs match in temperature (avoid mixing incandescent and fluorescent).']},
+  {t:'Turn Off Screens',e:'📺',items:['Turn OFF all active TVs, computer screens, and monitors to prevent HDR blur and protect privacy.','Turn off anything that moves, such as ceiling fans.']},
+  {t:'Kitchen & Dining Room',e:'🍽️',items:['Clear and clean kitchen counters (leave only a few decorative items).','Empty sink, load dishwasher, take out trash, and hide garbage cans in pantry or closet.','Remove magnets, notes, and pictures from the refrigerator.']},
+  {t:'Bedrooms',e:'🛏️',items:['Make and decorate all beds with clean sheets and neutral/coordinating blankets and pillows.','Remove personal photos and replace with neutral art or nature photos.','Clear nightstands and dressers down to a lamp and one decoration.']},
+  {t:'Bathrooms',e:'🛁',items:['Create a spa-like atmosphere by clearing countertops of all personal items (toothbrushes, medications, deodorants).','Remove all soaps, razors, and loofahs from showers and tubs.','Hang crisp, clean towels and put toilet seats down with a fresh roll of toilet paper.','Organize closets by folding, hanging, and sorting by color.']}
  ]},
  {key:'exterior',num:'02',title:'Exterior',sub:'Front Yard, Back Yard, Patios, Pools',sections:[
-  {t:'Front Yard',items:['Sweep and pressure-wash porches, patios, and decks; remove dead plants and leaves.','Remove all cars, trucks, RVs, and trailers from the driveway and street; close garage doors.','Check flag etiquette guidelines if displaying a flag.']},
-  {t:'Back Yard',items:['Hide large garbage cans in the garage; roll up garden hoses and store lawnmowers/tools.','Clear lawn of toys, sports balls, soccer/basketball goals, and pet items.']},
-  {t:'Patios & Pools',items:['Remove smoker and grill covers (or remove rusty grills entirely).','Open patio umbrellas, dust off furniture, and set out styling touches like flowers or wine glasses.','Remove pool/hot tub debris, store vacuums/hoses, and turn on water features.']}
+  {t:'Front Yard',e:'🏡',items:['Sweep and pressure-wash porches, patios, and decks; remove dead plants and leaves.','Remove all cars, trucks, RVs, and trailers from the driveway and street; close garage doors.','Check flag etiquette guidelines if displaying a flag.']},
+  {t:'Back Yard',e:'🌳',items:['Hide large garbage cans in the garage; roll up garden hoses and store lawnmowers/tools.','Clear lawn of toys, sports balls, soccer/basketball goals, and pet items.']},
+  {t:'Patios & Pools',e:'🏊',items:['Remove smoker and grill covers (or remove rusty grills entirely).','Open patio umbrellas, dust off furniture, and set out styling touches like flowers or wine glasses.','Remove pool/hot tub debris, store vacuums/hoses, and turn on water features.']}
  ]},
  {key:'pets',num:'03',title:'Pets',sub:'Furry Pals & Dander Control',sections:[
-  {t:'Pet Prep & Odor Control',items:['Complete a "smell test" with a non-resident friend to ensure no pet odors remain.','Put away food bowls, water bowls, beds, and toys in a closet or pantry.','Lint-roll and vacuum furniture to eliminate pet hair.','Arrange for pets to go for a walk or stay in a hidden crate during the shoot.','Clear backyard of all pet waste.']}
+  {t:'Pet Prep & Odor Control',e:'🐾',items:['Complete a "smell test" with a non-resident friend to ensure no pet odors remain.','Put away food bowls, water bowls, beds, and toys in a closet or pantry.','Lint-roll and vacuum furniture to eliminate pet hair.','Arrange for pets to go for a walk or stay in a hidden crate during the shoot.','Clear backyard of all pet waste.']}
  ]},
  {key:'wrap',num:'04',title:'Wrapping Up',sub:'Weather, Leaving, Locking Up',sections:[
-  {t:'Leaving the Property',items:['Make plans for family, kids, and pets to leave the property for a few hours so the photographer can work efficiently.']},
-  {t:'Weather & Tides',items:['Stay flexible and be prepared to reschedule if weather (rain, wind, clouds obscuring views) impacts exterior or drone shots.']},
-  {t:'Locking Up',items:['Provide clear locking instructions or a secure lockbox key for the photographer when they finish.']}
+  {t:'Leaving the Property',e:'🚪',items:['Make plans for family, kids, and pets to leave the property for a few hours so the photographer can work efficiently.']},
+  {t:'Weather & Tides',e:'🌤️',items:['Stay flexible and be prepared to reschedule if weather (rain, wind, clouds obscuring views) impacts exterior or drone shots.']},
+  {t:'Locking Up',e:'🔒',items:['Provide clear locking instructions or a secure lockbox key for the photographer when they finish.']}
  ]}
 ];
 CATS.forEach(function(c){c.sections.forEach(function(s,si){s.items=s.items.map(function(t,ii){return {id:c.key+'-'+si+'-'+ii,t:t}})})});
@@ -353,7 +355,7 @@ var THEME={interior:{acc:'#E46029',ink:'#fff',txt:'#E46029'},exterior:{acc:'var(
 var ORDER=['home','interior','exterior','pets','wrap','contact'];
 var stage=$('#stage');
 function cur(s){return stage.lastElementChild?$(s,stage.lastElementChild):null}
-var TOP5=['Clean, organize, declutter, and tidy up pet items.','Turn on all lights and open blinds.','Ask homeowners and dogs to leave the residence for the shoot.','Sweep porches/patios, tidy outdoor furniture, and remove BBQ covers.','Remove all cars and trailers from the driveway and property.'];
+var TOP5=['Clean, organize, declutter, and tidy up. Hide extra items in closets or garage.','Turn on all lights and open the blinds. We love natural light!','Sweep porches/patios, tidy outdoor furniture, and remove BBQ covers.','Remove all cars and trailers from the driveway and property.','Please grab the dogs and leave the property for the duration of the shoot - appx 2-3 hours.'];
 
 /* ---------- state ---------- */
 var state={done:{},seen:false,top5:true,theme:'system',shoot:null};
@@ -402,7 +404,7 @@ function footHTML(){
 }
 function homeHTML(){
   var h='';
-  h+='<header class="lt rise"><div><p class="eyebrow">Neighborhood Experts</p><h1>Home Prep Guide</h1></div><button class="mono" type="button" data-go="contact" aria-label="Contact Neighborhood Experts">NE</button></header>';
+  h+='<header class="lt rise"><div><p class="eyebrow">Neighborhood Experts</p><h1>Home Prep Guide</h1></div><button class="mono" type="button" data-go="contact" aria-label="Contact Neighborhood Experts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></header>';
   h+='<section class="card hero rise" style="--i:1"><div class="ringwrap"><svg viewBox="0 0 200 200" aria-hidden="true">'
    +'<circle class="ring-track" cx="100" cy="100" r="86"/><circle class="ring-bar" id="ringBar" cx="100" cy="100" r="86" pathLength="100"/></svg>'
    +'<div class="ring-center"><div class="pct"><span id="pctNum">0</span><small>%</small></div><span>Ready for Media</span></div></div>'
@@ -425,7 +427,7 @@ function catHTML(c){
   h+='<section class="card sum rise" style="--i:1"><div class="top"><span>'+c.sub+'</span><b id="hcount"></b></div><div class="hbar"><i id="hbar"></i></div></section>';
   c.sections.forEach(function(s,si){
     var k=secCount(c,si);
-    h+='<div class="gh rise" style="--i:'+(si+2)+'">'+s.t+'<small data-sc="'+c.key+'-'+si+'">'+k.d+' of '+k.t+'</small></div><ul class="list rise" style="--i:'+(si+2)+'">';
+    h+='<div class="gh rise" style="--i:'+(si+2)+'"><span>'+(s.e?'<span class="em" aria-hidden="true">'+s.e+'</span>':'')+s.t+'</span><small data-sc="'+c.key+'-'+si+'">'+k.d+' of '+k.t+'</small></div><ul class="list rise" style="--i:'+(si+2)+'">';
     s.items.forEach(function(it){
       var on=!!state.done[it.id];
       h+='<li><button class="item'+(on?' done':'')+'" type="button" role="checkbox" aria-checked="'+on+'" data-id="'+it.id+'" data-cat="'+c.key+'"><span class="box"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9"/></svg></span><span class="txt">'+it.t+'</span></button>'+whyHTML(it.id)+'</li>';
