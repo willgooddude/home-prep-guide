@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#EFE9D9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B130E" media="(prefers-color-scheme: dark)">
+<meta name="description" content="A photo-day checklist from Neighborhood Experts to get your home camera-ready.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Home Prep">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Neighborhood Experts Home Prep Guide</title>
+<style>
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+/* Layout: iOS-style single column. Large title, inset grouped lists, solid brand-colored icon tiles, translucent bottom tab bar. */
+:root{
+  --paper:#EFE9D9; --ever:#316946; --red:#E46029; --amber:#E39C3B; --dawn:#F5D194;
+  --pink:#FFA99F; --teal:#98D3D3; --lav:#C5CCF1; --gray:#646464;
+  --bg:#EFE9D9; --card:#FFFDF8; --fg:#1B2A20; --muted:#6A6F68; --sep:rgba(100,100,100,.22);
+  --head:#316946; --track:rgba(255,169,159,.38); --wash:rgba(255,169,159,.34); --wp:28%; --bar:rgba(239,233,217,.82);
+  --ever-fill:#316946; --check:#FFFFFF; --on-red:#FFFFFF; --off:rgba(100,100,100,.4);
+  --shadow:0 1px 2px rgba(31,59,42,.06),0 8px 24px -12px rgba(31,59,42,.18);
+  --font:-apple-system,BlinkMacSystemFont,'SF Pro Text','SF Pro Display',system-ui,'Segoe UI',Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0B130E; --card:#16221A; --fg:#F2EEE2; --muted:#9AA69B; --sep:rgba(255,255,255,.12);
+  --head:#8DD0A6; --track:rgba(255,169,159,.22); --wash:rgba(255,169,159,.16); --wp:16%; --bar:rgba(11,19,14,.8);
+  --ever-fill:#3F8B5F; --off:rgba(255,255,255,.35); --shadow:0 1px 2px rgba(0,0,0,.4); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0B130E; --card:#16221A; --fg:#F2EEE2; --muted:#9AA69B; --sep:rgba(255,255,255,.12);
+  --head:#8DD0A6; --track:rgba(255,169,159,.22); --wash:rgba(255,169,159,.16); --wp:16%; --bar:rgba(11,19,14,.8);
+  --ever-fill:#3F8B5F; --off:rgba(255,255,255,.35); --shadow:0 1px 2px rgba(0,0,0,.4); color-scheme:dark}
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--fg);font:400 17px/1.4 var(--font);letter-spacing:-.01em;-webkit-font-smoothing:antialiased}
+.stage{position:relative;overflow-x:clip}
+.page{position:relative;background:linear-gradient(180deg,color-mix(in srgb,var(--acc,transparent) var(--wp,0%),transparent),transparent 420px) no-repeat,var(--bg)}
+.inner{max-width:520px;margin-inline:auto;padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px));padding-block:8px 120px}
+.lt .tile{width:48px;height:48px;border-radius:13px;flex:none}
+.lt .tile svg{width:26px;height:26px}
+h1,h2,h3,p{margin:0}
+a{color:var(--head);text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer;letter-spacing:inherit}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:10px}
+
+.rise{animation:none}
+
+/* large title */
+.lt{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:18px 4px 14px}
+.lt .eyebrow{font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--acc-text,var(--red))}
+.mono{box-shadow:0 0 0 3px var(--pink);border:0;padding:0;font-family:inherit;cursor:pointer;transition:transform .15s}
+.mono:active{transform:scale(.92)}
+.back{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:4px;font-size:17px;color:var(--head);padding:12px 4px 0}
+.back svg{width:12px;height:18px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.back:focus-visible{outline:2px solid var(--red);border-radius:8px}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:3px;border-radius:12px;background:var(--track)}
+.seg button{all:unset;box-sizing:border-box;text-align:center;padding:10px 0;border-radius:10px;font-size:15px;font-weight:500;color:var(--muted);cursor:pointer;transition:background .2s,color .2s,box-shadow .2s}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--fg);box-shadow:var(--shadow)}
+.seg button:focus-visible{outline:2px solid var(--red);outline-offset:1px}
+.hint{font-size:13px;color:var(--muted);margin:8px 16px 0}
+.lt h1{font-size:34px;line-height:1.1;font-weight:700;letter-spacing:-.03em;color:var(--fg);margin-top:2px}
+.mono{flex:none;width:44px;height:44px;border-radius:12px;background:var(--ever);color:#fff;display:grid;place-items:center;font-weight:700;font-size:16px;letter-spacing:.02em}
+
+/* cards + lists */
+.card{background:var(--card);border-radius:20px;box-shadow:var(--shadow)}
+.gh{font-size:13px;font-weight:500;letter-spacing:.02em;text-transform:uppercase;color:var(--muted);margin:26px 16px 8px;display:flex;justify-content:space-between;gap:10px}
+.gh small{font-size:13px;text-transform:none;letter-spacing:0;font-variant-numeric:tabular-nums}
+.list{list-style:none;margin:0;padding:0;background:var(--card);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+.list>li{position:relative}
+.list>li+li::before{content:"";position:absolute;top:0;left:16px;right:0;height:.5px;background:var(--sep)}
+
+/* hero ring */
+.hero{padding:24px 20px 22px;text-align:center;background:radial-gradient(120% 70% at 50% 0%,var(--wash),transparent 70%),var(--card)}
+.ringwrap{position:relative;width:min(250px,70vw);aspect-ratio:1;margin:0 auto 14px}
+.ringwrap svg{width:100%;height:100%;display:block;transform:rotate(-90deg);overflow:visible}
+.ring-track{fill:none;stroke:var(--track);stroke-width:14}
+.ring-bar{fill:none;stroke:var(--red);stroke-width:14;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;transition:stroke-dashoffset 1.1s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 0 6px rgba(228,96,41,.45))}
+.ring-center{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.pct{font-size:68px;font-weight:700;letter-spacing:-.04em;line-height:1;color:var(--head);font-variant-numeric:tabular-nums;display:flex;align-items:flex-start;justify-content:center}
+.pct small{font-size:28px;font-weight:700;color:var(--red);margin:6px 0 0 3px;letter-spacing:0}
+.ring-center>span{font-size:16px;font-weight:600;letter-spacing:-.01em;color:var(--fg);opacity:.75;margin-top:8px}
+.msg{font-size:18px;font-weight:600;letter-spacing:-.02em;max-width:28ch;margin-inline:auto;text-wrap:balance}
+.tally{font-size:15px;color:var(--muted);margin-top:4px;font-variant-numeric:tabular-nums}
+
+/* top 5 */
+.top5-h{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer}
+.top5-h:focus-visible{outline:2px solid var(--red);outline-offset:-3px}
+.tile{flex:none;width:36px;height:36px;border-radius:9px;display:grid;place-items:center;background:var(--t,var(--ever));color:var(--g,#fff)}
+.tile svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.tile .f{fill:currentColor;stroke:none}
+.top5-h .tx{min-width:0;flex:1}
+.top5-h b{display:block;font-weight:600;font-size:17px}
+.top5-h small{font-size:13px;color:var(--muted)}
+.chev{flex:none;width:14px;height:14px;stroke:var(--off);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;transition:transform .35s}
+.top5.open .top5-h .chev{transform:rotate(90deg)}
+.top5-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.2,.8,.2,1)}
+.top5.open .top5-body{grid-template-rows:1fr}
+.top5-body>div{overflow:hidden;min-height:0}
+.top5 ol{list-style:none;margin:0;padding:0 16px 6px;counter-reset:t}
+.top5 li{counter-increment:t;display:flex;gap:12px;padding:12px 0;border-top:.5px solid var(--sep)}
+.top5 li::before{content:counter(t);flex:none;width:24px;height:24px;border-radius:50%;background:var(--pink);color:#316946;font-size:13px;font-weight:700;display:grid;place-items:center;margin-top:0}
+
+/* category rows */
+.row{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer;transition:background .15s}
+.row:active{background:var(--track)}
+.row:focus-visible{outline:2px solid var(--red);outline-offset:-3px}
+.row .tile{width:40px;height:40px;border-radius:10px}
+.row .rt{min-width:0;flex:1}
+.row b{display:block;font-weight:600;font-size:17px}
+.row small{display:block;font-size:13px;color:var(--muted);line-height:1.3}
+.mini{height:4px;border-radius:4px;background:var(--track);overflow:hidden;margin-top:8px}
+.mini i{display:block;height:100%;width:0;border-radius:4px;background:var(--red);transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.rc{flex:none;display:flex;align-items:center;gap:8px;color:var(--muted);font-size:15px;font-variant-numeric:tabular-nums}
+
+/* support + contact */
+.support{margin-top:26px;padding:20px;border-radius:20px;background:var(--ever);color:#fff}
+.support h3{font-size:20px;font-weight:700;letter-spacing:-.02em;margin-bottom:4px;color:var(--pink)}
+.support p{font-size:15px;opacity:.92}
+.btn{display:inline-flex;align-items:center;justify-content:center;margin-top:14px;padding:13px 22px;border-radius:14px;background:var(--red);color:var(--on-red);font-weight:600;font-size:16px;border:0;text-decoration:none;transition:transform .15s,opacity .15s}
+.btn:active{transform:scale(.97);opacity:.9}
+.crow{display:flex;gap:12px;align-items:flex-start;padding:13px 16px}
+.crow .lbl{flex:none;width:64px;font-size:15px;color:var(--muted)}
+.crow .val{min-width:0;flex:1;overflow-wrap:anywhere;user-select:text;-webkit-user-select:text;font-size:16px}
+.crow .val a{font-weight:500}
+.links{display:flex;flex-direction:column;gap:8px}
+.copy{all:unset;flex:none;cursor:pointer;font-size:15px;font-weight:500;color:var(--head);padding:0 2px}
+.copy:focus-visible{outline:2px solid var(--red);border-radius:6px}
+.fine{font-size:13px;color:var(--muted);text-align:center;margin-top:16px;line-height:1.5}
+.foot{display:flex;flex-wrap:wrap;gap:6px 22px;justify-content:center;margin-top:18px}
+.foot button{all:unset;cursor:pointer;font-size:15px;color:var(--head);padding:8px 2px}
+.foot button.danger{color:var(--red)}
+.foot button:focus-visible{outline:2px solid var(--red);border-radius:6px}
+.confirm{display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:center;font-size:15px}
+
+/* category page */
+.sum{padding:16px 18px;background:color-mix(in srgb,var(--acc,transparent) 20%,var(--card))}
+.sum .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:15px;color:var(--muted)}
+.sum .top b{font-size:22px;font-weight:700;color:var(--fg);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.hbar{height:8px;border-radius:8px;background:color-mix(in srgb,var(--acc,var(--red)) 30%,transparent);overflow:hidden;margin-top:10px}
+.hbar i{display:block;height:100%;width:0;border-radius:8px;background:var(--acc,var(--red));transition:width .7s cubic-bezier(.2,.8,.2,1);box-shadow:0 0 10px color-mix(in srgb,var(--acc,var(--red)) 60%,transparent)}
+.item{all:unset;box-sizing:border-box;width:100%;display:flex;gap:14px;align-items:flex-start;padding:14px 16px;min-height:54px;cursor:pointer}
+.item:focus-visible{outline:2px solid var(--red);outline-offset:-2px}
+.box{position:relative;flex:none;width:26px;height:26px;margin-top:-1px;border-radius:50%;border:1.7px solid color-mix(in srgb,var(--acc,var(--off)) 60%,var(--muted));display:grid;place-items:center;transition:background .25s,border-color .25s,transform .2s,box-shadow .3s}
+.item:active .box{transform:scale(.88)}
+.box svg{width:14px;height:14px;fill:none;stroke:var(--acc-ink,var(--check));stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .35s .05s cubic-bezier(.3,.8,.3,1)}
+.item.done .box{background:var(--acc,var(--ever-fill));border-color:var(--acc,var(--ever-fill));box-shadow:0 0 12px color-mix(in srgb,var(--acc,#316946) 55%,transparent)}
+.item.done .box svg{stroke-dashoffset:0}
+.item.pop .box{animation:ripple .7s ease-out}
+@keyframes ripple{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--acc,#FFA99F) 85%,transparent),0 0 12px color-mix(in srgb,var(--acc,#316946) 55%,transparent)}100%{box-shadow:0 0 0 14px color-mix(in srgb,var(--acc,#FFA99F) 0%,transparent),0 0 12px color-mix(in srgb,var(--acc,#316946) 55%,transparent)}}
+.txt{flex:1;min-width:0;font-size:16px;line-height:1.4;transition:color .25s}
+.item.done .txt{color:var(--muted)}
+
+/* tab bar */
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px));background:var(--bar);-webkit-backdrop-filter:blur(22px) saturate(1.8);backdrop-filter:blur(22px) saturate(1.8);border-top:.5px solid var(--sep)}
+.tabs nav{max-width:520px;margin-inline:auto;display:grid;grid-template-columns:repeat(5,1fr)}
+.tab{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 0 3px;font-size:10px;font-weight:500;letter-spacing:.01em;color:var(--muted);position:relative}
+.tab:focus-visible{outline:2px solid var(--red);outline-offset:-2px;border-radius:10px}
+.ti{display:grid;place-items:center;width:52px;height:30px;border-radius:15px;transition:background .3s,color .3s}
+.tab svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.tab .f{fill:currentColor;stroke:none}
+.tab[aria-current="page"]{color:var(--fg)}
+.tab[aria-current="page"] .ti{background:var(--tc);color:var(--tg)}
+.tab.done::after{content:"";position:absolute;top:3px;left:calc(50% + 14px);width:8px;height:8px;border-radius:50%;background:var(--ever-fill);box-shadow:0 0 0 2px var(--bg)}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translate(-50%,16px);opacity:0;z-index:70;max-width:min(92vw,420px);padding:12px 20px;border-radius:999px;background:#1B2A20;color:#fff;font-size:15px;font-weight:500;text-align:center;box-shadow:0 10px 30px -8px rgba(0,0,0,.4);pointer-events:none;transition:opacity .3s,transform .3s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* onboarding */
+.ob{position:fixed;inset:0;z-index:50;background:var(--bg);display:flex;flex-direction:column;padding:env(safe-area-inset-top,0px) 0 calc(20px + env(safe-area-inset-bottom,0px));transition:opacity .45s,transform .45s}
+.ob.out{opacity:0;transform:scale(1.02);pointer-events:none}
+.ob-top{display:flex;justify-content:flex-end;padding:14px max(20px,env(safe-area-inset-right,0px)) 0 20px;min-height:54px}
+.ob-top button{all:unset;cursor:pointer;color:var(--head);font-size:17px;padding:8px 6px}
+.ob-top button:focus-visible{outline:2px solid var(--red);border-radius:8px}
+.ob-track{flex:1;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.ob-track::-webkit-scrollbar{display:none}
+.slide{flex:none;width:100%;scroll-snap-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:0 max(32px,env(safe-area-inset-left,0px));text-align:center}
+.bigtile{width:128px;height:128px;border-radius:30px;display:grid;place-items:center;background:var(--t);color:var(--g,#fff);box-shadow:0 18px 36px -16px var(--t)}
+.bigtile svg{width:68px;height:68px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.slide h1{font-size:32px;line-height:1.12;font-weight:700;letter-spacing:-.03em;max-width:13ch;text-wrap:balance}
+.slide p.b{font-size:17px;color:var(--muted);max-width:32ch}
+.ob-foot{display:flex;flex-direction:column;align-items:center;gap:18px;padding:0 max(24px,env(safe-area-inset-left,0px))}
+.dots{display:flex;gap:8px}
+.dots i{width:8px;height:8px;border-radius:8px;background:var(--off);transition:width .3s,background .3s}
+.dots i.on{width:22px;background:var(--red)}
+.ob-foot .btn{margin:0;width:100%;max-width:420px;padding:16px;font-size:17px}
+
+/* shoot countdown */
+.shoot{margin-top:16px;padding:16px;background:linear-gradient(135deg,color-mix(in srgb,var(--pink) 32%,transparent),transparent 75%),var(--card)}
+.shoot-h{display:flex;align-items:center;gap:12px}
+.shoot-h .tx{flex:1;min-width:0}
+.shoot-h b{display:block;font-weight:600;font-size:17px}
+.shoot-h small{font-size:13px;color:var(--muted)}
+.cd{flex:none;text-align:right}
+.cd em{display:block;font-style:normal;font-size:42px;font-weight:700;letter-spacing:-.03em;line-height:1;color:var(--red);font-variant-numeric:tabular-nums}
+.cd em.w{font-size:30px}
+.cd small{display:block;font-size:13px;color:var(--muted);margin-top:3px}
+.pace{font-size:15px;margin-top:12px;color:var(--fg);opacity:.85}
+.shoot-f{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px}
+.datepick{position:relative;display:flex;align-items:center;justify-content:center;min-height:46px;padding:0 20px;border-radius:14px;background:var(--red);color:#fff;font-weight:600;font-size:16px;overflow:hidden;cursor:pointer;margin-top:14px}
+.datepick.ghost{margin-top:0;background:color-mix(in srgb,var(--pink) 40%,transparent);color:var(--fg);min-height:40px;font-size:15px;flex:1}
+.dateinp{position:absolute;inset:0;width:100%;height:100%;opacity:0;font-size:16px;cursor:pointer}
+.lnk{all:unset;cursor:pointer;color:var(--red);font-size:15px;font-weight:500;padding:6px 2px}
+.lnk:focus-visible{outline:2px solid var(--red);border-radius:6px}
+.datepick:focus-within{outline:2px solid var(--head);outline-offset:2px}
+
+/* why it matters */
+.whytog{all:unset;box-sizing:border-box;cursor:pointer;display:flex;width:max-content;max-width:calc(100% - 72px);align-items:center;gap:5px;margin:-10px 16px 4px 42px;padding:10px 14px;color:var(--acc-text,var(--head))}
+.whytog:focus-visible{outline:2px solid var(--red);border-radius:6px}
+.vchev{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s}
+li.open .vchev{transform:rotate(180deg)}
+.whybody{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s cubic-bezier(.2,.8,.2,1)}
+li.open .whybody{grid-template-rows:1fr}
+.whybody>div{overflow:hidden;min-height:0;visibility:hidden;transition:visibility 0s .35s}
+li.open .whybody>div{visibility:visible;transition-delay:0s}
+.whybody p{margin:0 16px 14px 56px;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,var(--acc,var(--pink)) 18%,transparent);font-size:14.5px;line-height:1.45}
+
+/* finish celebration */
+.win{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:20px max(16px,env(safe-area-inset-left,0px));background:rgba(11,19,14,.55);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);animation:fadein .3s both}
+#conf{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+.win-card{position:relative;width:min(100%,400px);background:var(--card);border-radius:28px;padding:30px 22px 20px;text-align:center;box-shadow:0 30px 80px -20px rgba(0,0,0,.55);animation:popin .55s cubic-bezier(.2,1.25,.4,1) both}
+.win-badge{width:84px;height:84px;margin:0 auto 16px;border-radius:50%;background:var(--ever-fill);display:grid;place-items:center;box-shadow:0 0 0 8px color-mix(in srgb,var(--pink) 55%,transparent),0 0 30px rgba(49,105,70,.5)}
+.win-badge svg{width:44px;height:44px;fill:none;stroke:#fff;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;animation:draw .6s .3s cubic-bezier(.3,.8,.3,1) forwards}
+.win h2{font-size:28px;font-weight:700;letter-spacing:-.03em;line-height:1.15;text-wrap:balance}
+.win p.sub{color:var(--muted);font-size:16px;margin-top:8px}
+.win .lbl2{font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-top:18px;text-align:left}
+.agentmsg{margin-top:8px;padding:12px 14px;border-radius:14px;background:color-mix(in srgb,var(--pink) 30%,transparent);font-size:15px;line-height:1.45;text-align:left;user-select:text;-webkit-user-select:text}
+.win .btn{width:100%;margin-top:14px}
+.win .lnk{display:block;margin:10px auto 0;font-size:16px}
+@keyframes fadein{from{opacity:0}}
+@keyframes popin{from{opacity:0;transform:translateY(24px) scale(.92)}}
+@keyframes draw{to{stroke-dashoffset:0}}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.win-badge svg{stroke-dashoffset:0}}
+</style>
+</head>
+<body>
+<div class="stage" id="stage"></div>
+
+<div class="tabs"><nav id="tabs" aria-label="Sections"></nav></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div class="win" id="win" hidden role="dialog" aria-modal="true" aria-labelledby="winT">
+  <canvas id="conf" aria-hidden="true"></canvas>
+  <div class="win-card">
+    <div class="win-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
+    <h2 id="winT">You're Ready for Media!</h2>
+    <p class="sub">Every task is checked off. Your home is ready for its close-up.</p>
+    <p class="lbl2">Let your agent know</p>
+    <p class="agentmsg" id="agentMsg"></p>
+    <button class="btn" type="button" data-act="copy-msg">Copy message for your agent</button>
+    <button class="lnk" type="button" data-act="win-close">Back to checklist</button>
+  </div>
+</div>
+
+<div class="ob" id="ob" role="dialog" aria-label="Welcome">
+  <div class="ob-top"><button id="obSkip" type="button">Skip</button></div>
+  <div class="ob-track" id="obTrack">
+    <section class="slide">
+      <div class="bigtile" style="--t:#E46029"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></div>
+      <h1>Welcome to Neighborhood Experts</h1>
+      <p class="b">Preparing your home for professional photography is the single most important step in capturing buyer interest and securing an attractive offer. Let's make your home sparkle.</p>
+    </section>
+    <section class="slide">
+      <div class="bigtile" style="--t:#FFA99F;--g:#316946"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg></div>
+      <h1>Light, Space, &amp; Flow</h1>
+      <p class="b">Learn how to declutter, maximize natural light, and stage every room to create a warm, inviting atmosphere buyers will fall in love with.</p>
+    </section>
+    <section class="slide">
+      <div class="bigtile" style="--t:#316946"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2.5"/><path d="M9 4V3h6v1"/><path d="M8.5 10l1.5 1.5 2.5-3M8.5 16l1.5 1.5 2.5-3M14.5 10.5h2M14.5 16.5h2"/></svg></div>
+      <h1>Your Step-by-Step Checklist</h1>
+      <p class="b">Track your progress across interior, exterior, pets, and wrap-up tasks so you and your home are 100% camera-ready.</p>
+    </section>
+  </div>
+  <div class="ob-foot">
+    <div class="dots" id="obDots"><i class="on"></i><i></i><i></i></div>
+    <button class="btn" id="obNext" type="button">Continue</button>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+var KEY='ne-home-prep-guide-v1';
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- data ---------- */
+var ICONS={
+  home:'<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',
+  interior:'<path d="M4 12V9a3 3 0 013-3h10a3 3 0 013 3v3"/><path d="M2 12a2 2 0 014 0v3h12v-3a2 2 0 014 0v5H2z"/><path d="M5 17v2M19 17v2"/>',
+  exterior:'<circle cx="12" cy="9" r="6"/><path d="M12 15v6M9 21h6"/>',
+  pets:'<circle class="f" cx="5.5" cy="11" r="1.8"/><circle class="f" cx="9.5" cy="6.5" r="1.8"/><circle class="f" cx="14.5" cy="6.5" r="1.8"/><circle class="f" cx="18.5" cy="11" r="1.8"/><path d="M12 12c-3 0-5.2 3-5.2 5.4 0 1.8 1.6 2.6 3.2 2.1.8-.3 1.2-.5 2-.5s1.2.2 2 .5c1.6.5 3.2-.3 3.2-2.1C17.2 15 15 12 12 12z"/>',
+  wrap:'<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3M13.5 9.5l2.5 2.5"/>',
+  top:'<path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.5 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/>'
+};
+var TILE={cal:['#FFA99F','#316946'],interior:['#E46029','#fff'],exterior:['#316946','#fff'],pets:['#FFA99F','#316946'],wrap:['#C5CCF1','#316946'],top:['#E46029','#fff']};
+var CATS=[
+ {key:'interior',num:'01',title:'Interior',sub:'Kitchen, Dining, Bedrooms, Bathrooms',sections:[
+  {t:'Clean & Tidy Up',items:['Thoroughly clean the whole house (vacuum carpets, mop hard floors, wipe down counters, shine windows).','Put all shoes and jackets in closets to showcase storage space.','Remove floor mats and runners in kitchens, bathrooms, and hallways to make floors look larger.']},
+  {t:'Windows & Blinds',items:['Open all window coverings to let in natural light.','Keep horizontal blinds down with blades flat or turned up slightly; keep vertical blinds fully open.']},
+  {t:'Lighting',items:['Turn on every ceiling light, floor lamp, and table lamp in the house.','Replace burned-out light bulbs across all rooms.','Ensure bulbs match in temperature (avoid mixing incandescent and fluorescent).']},
+  {t:'Turn Off Screens',items:['Turn OFF all active TVs, computer screens, and monitors to prevent HDR blur and protect privacy.','Turn off anything that moves, such as ceiling fans.']},
+  {t:'Kitchen & Dining Room',items:['Clear and clean kitchen counters (leave only a few decorative items).','Empty sink, load dishwasher, take out trash, and hide garbage cans in pantry or closet.','Remove magnets, notes, and pictures from the refrigerator.']},
+  {t:'Bedrooms',items:['Make and decorate all beds with clean sheets and neutral/coordinating blankets and pillows.','Remove personal photos and replace with neutral art or nature photos.','Clear nightstands and dressers down to a lamp and one decoration.']},
+  {t:'Bathrooms',items:['Create a spa-like atmosphere by clearing countertops of all personal items (toothbrushes, medications, deodorants).','Remove all soaps, razors, and loofahs from showers and tubs.','Hang crisp, clean towels and put toilet seats down with a fresh roll of toilet paper.','Organize closets by folding, hanging, and sorting by color.']}
+ ]},
+ {key:'exterior',num:'02',title:'Exterior',sub:'Front Yard, Back Yard, Patios, Pools',sections:[
+  {t:'Front Yard',items:['Sweep and pressure-wash porches, patios, and decks; remove dead plants and leaves.','Remove all cars, trucks, RVs, and trailers from the driveway and street; close garage doors.','Check flag etiquette guidelines if displaying a flag.']},
+  {t:'Back Yard',items:['Hide large garbage cans in the garage; roll up garden hoses and store lawnmowers/tools.','Clear lawn of toys, sports balls, soccer/basketball goals, and pet items.']},
+  {t:'Patios & Pools',items:['Remove smoker and grill covers (or remove rusty grills entirely).','Open patio umbrellas, dust off furniture, and set out styling touches like flowers or wine glasses.','Remove pool/hot tub debris, store vacuums/hoses, and turn on water features.']}
+ ]},
+ {key:'pets',num:'03',title:'Pets',sub:'Furry Pals & Dander Control',sections:[
+  {t:'Pet Prep & Odor Control',items:['Complete a "smell test" with a non-resident friend to ensure no pet odors remain.','Put away food bowls, water bowls, beds, and toys in a closet or pantry.','Lint-roll and vacuum furniture to eliminate pet hair.','Arrange for pets to go for a walk or stay in a hidden crate during the shoot.','Clear backyard of all pet waste.']}
+ ]},
+ {key:'wrap',num:'04',title:'Wrapping Up',sub:'Weather, Leaving, Locking Up',sections:[
+  {t:'Leaving the Property',items:['Make plans for family, kids, and pets to leave the property for a few hours so the photographer can work efficiently.']},
+  {t:'Weather & Tides',items:['Stay flexible and be prepared to reschedule if weather (rain, wind, clouds obscuring views) impacts exterior or drone shots.']},
+  {t:'Locking Up',items:['Provide clear locking instructions or a secure lockbox key for the photographer when they finish.']}
+ ]}
+];
+CATS.forEach(function(c){c.sections.forEach(function(s,si){s.items=s.items.map(function(t,ii){return {id:c.key+'-'+si+'-'+ii,t:t}})})});
+ICONS.cal='<rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/>';
+var WHY={
+ 'interior-0-0':'Cameras pick up dust, smudges, and streaks you stop noticing in person. Clean surfaces look brighter and better cared for.',
+ 'interior-0-2':'Bare floors show more of the room, so spaces look larger in photos.',
+ 'interior-1-0':'Natural light is the biggest factor in a bright, inviting photo. Closed blinds make rooms look dim and smaller.',
+ 'interior-2-0':'Lit rooms photograph brighter and more welcoming. A dark corner can look like a dead space.',
+ 'interior-2-2':'Mixing warm and cool bulbs creates uneven color in photos and takes more editing to correct.',
+ 'interior-3-0':'Active screens can blur in HDR photos and can show personal information. A dark TV photographs cleaner.',
+ 'interior-3-1':'Moving fan blades blur in photos. Turning them off keeps the ceiling clean and sharp.',
+ 'interior-4-0':'Clear counters make the kitchen look larger and help buyers picture their own things there.',
+ 'interior-5-1':'Neutral walls help buyers picture themselves living in the home instead of looking at yours.',
+ 'interior-6-0':'A clear counter reads as clean and calm, like a spa. Personal items pull the eye away from the room.',
+ 'exterior-0-0':'The front of the home is the first photo buyers see. A swept entry and tidy plants set the tone for the whole listing.',
+ 'exterior-0-1':'Cars and trailers block the view of the house and distract from the home you are selling.',
+ 'exterior-1-0':'Garbage cans and hoses draw the eye in outdoor photos. Out of sight, the yard looks bigger and cleaner.',
+ 'pets-0-0':'You get used to your own home\'s smell. A friend who doesn\'t live there will notice what you can\'t.',
+ 'pets-0-3':'Pets move unpredictably and can ruin a shot. Keeping them out of the way helps the shoot go faster.',
+ 'wrap-0-0':'Fewer people and pets in the house means fewer distractions and a quicker, cleaner shoot.',
+ 'wrap-1-0':'Rain and heavy clouds flatten exterior and drone photos. Waiting for a better day gets a better result.'
+};
+function whyHTML(id){var w=WHY[id];return w?'<button class="whytog" type="button" aria-expanded="false" aria-label="Why it matters"><svg class="vchev" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 4.5L7 10l5-5.5"/></svg></button><div class="whybody"><div><p>'+w+'</p></div></div>':''}
+var THEME={interior:{acc:'#E46029',ink:'#fff',txt:'#E46029'},exterior:{acc:'var(--ever-fill)',ink:'#fff',txt:'var(--head)'},pets:{acc:'#FFA99F',ink:'#316946',txt:'var(--head)'},wrap:{acc:'#C5CCF1',ink:'#316946',txt:'var(--head)'}};
+var ORDER=['home','interior','exterior','pets','wrap','contact'];
+var stage=$('#stage');
+function cur(s){return stage.lastElementChild?$(s,stage.lastElementChild):null}
+var TOP5=['Clean, organize, declutter, and tidy up pet items.','Turn on all lights and open blinds.','Ask homeowners and dogs to leave the residence for the shoot.','Sweep porches/patios, tidy outdoor furniture, and remove BBQ covers.','Remove all cars and trailers from the driveway and property.'];
+
+/* ---------- state ---------- */
+var state={done:{},seen:false,top5:true,theme:'system',shoot:null};
+try{var raw=localStorage.getItem(KEY);if(raw){var p=JSON.parse(raw);if(p&&typeof p==='object'){state.done=p.done||{};state.seen=!!p.seen;state.top5=p.top5!==false;if(p.theme==='light'||p.theme==='dark'||p.theme==='system')state.theme=p.theme;if(typeof p.shoot==='string'&&parseYMD(p.shoot))state.shoot=p.shoot}}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+var view='home',prevView='home';
+function applyTheme(){var r=document.documentElement;if(state.theme==='system')r.removeAttribute('data-theme');else r.setAttribute('data-theme',state.theme)}
+applyTheme();
+
+function count(c){var t=0,d=0;c.sections.forEach(function(s){s.items.forEach(function(i){t++;if(state.done[i.id])d++})});return {t:t,d:d}}
+function secCount(c,si){var t=0,d=0;c.sections[si].items.forEach(function(i){t++;if(state.done[i.id])d++});return {t:t,d:d}}
+function totals(){var t=0,d=0;CATS.forEach(function(c){var k=count(c);t+=k.t;d+=k.d});return {t:t,d:d,p:t?Math.round(d/t*100):0}}
+function ico(name){return '<svg viewBox="0 0 24 24" aria-hidden="true">'+ICONS[name]+'</svg>'}
+function tile(name){var t=TILE[name];return '<span class="tile" style="--t:'+t[0]+';--g:'+t[1]+'">'+ico(name)+'</span>'}
+var CHEV='<svg class="chev" viewBox="0 0 14 14" aria-hidden="true"><path d="M4.5 1.5L10 7l-5.5 5.5"/></svg>';
+
+/* ---------- views ---------- */
+function appearanceHTML(){
+  var o=[['light','Light'],['dark','Dark'],['system','System']];
+  return '<div class="gh rise" style="--i:7">Appearance</div><div class="seg rise" style="--i:7" role="group" aria-label="Appearance">'
+   +o.map(function(x){return '<button type="button" data-theme-set="'+x[0]+'" aria-pressed="'+(state.theme===x[0])+'">'+x[1]+'</button>'}).join('')
+   +'</div><p class="hint">System matches your iPhone\'s appearance setting.</p>';
+}
+function contactPageHTML(){
+  return '<button class="back rise" type="button" data-back><svg viewBox="0 0 12 18" aria-hidden="true"><path d="M10 2L3 9l7 7"/></svg>Back</button>'
+   +'<header class="lt rise"><div><p class="eyebrow">Neighborhood Experts</p><h1>Contact</h1></div></header>'
+   +supportHTML()+contactHTML()+appearanceHTML()+footHTML();
+}
+function contactHTML(){
+  return '<div class="gh rise" style="--i:6">Contact</div><ul class="list rise" style="--i:6" id="contact">'
+   +'<li class="crow"><span class="lbl">Phone</span><span class="val" id="phoneVal"><a href="tel:+12533134093">(253) 313-4093</a></span><button class="copy" type="button" data-copy="(253) 313-4093" data-what="Phone number">Copy</button></li>'
+   +'<li class="crow"><span class="lbl">Office</span><span class="val">5356 Olympic Dr Ste B<br>Gig Harbor, WA 98332</span></li>'
+   +'<li class="crow"><span class="lbl">Online</span><span class="val"><span class="links">'
+   +'<a href="https://neighborhoodexpertswa.com/" target="_blank" rel="noopener">neighborhoodexpertswa.com</a>'
+   +'<a href="https://neighborhoodexpertswa.com/sellers-guide" target="_blank" rel="noopener">Seller\'s Guide</a>'
+   +'<a href="https://partnerwithpaige.lpages.co/stagingguide/" target="_blank" rel="noopener">5 Senses of Staging</a>'
+   +'<a href="https://www.instagram.com/neighborhoodexpertsrealestate/" target="_blank" rel="noopener">Instagram</a></span></span></li></ul>'
+   +'<p class="fine">Neighborhood Experts &middot; Pierce &amp; Kitsap counties<br>License Number 128116</p>';
+}
+function supportHTML(){
+  return '<section class="support rise" style="--i:5"><h3>Any questions?</h3><p>Please contact your real estate agent or visit Neighborhood Experts WA.</p>'
+   +'<a class="btn" href="https://neighborhoodexpertswa.com/" target="_blank" rel="noopener">Visit Neighborhood Experts WA</a></section>';
+}
+function footHTML(){
+  return '<div class="foot" id="foot"><button type="button" data-act="intro">Replay intro</button><button type="button" class="danger" data-act="reset">Reset checklist</button></div>';
+}
+function homeHTML(){
+  var h='';
+  h+='<header class="lt rise"><div><p class="eyebrow">Neighborhood Experts</p><h1>Home Prep Guide</h1></div><button class="mono" type="button" data-go="contact" aria-label="Contact Neighborhood Experts">NE</button></header>';
+  h+='<section class="card hero rise" style="--i:1"><div class="ringwrap"><svg viewBox="0 0 200 200" aria-hidden="true">'
+   +'<circle class="ring-track" cx="100" cy="100" r="86"/><circle class="ring-bar" id="ringBar" cx="100" cy="100" r="86" pathLength="100"/></svg>'
+   +'<div class="ring-center"><div class="pct"><span id="pctNum">0</span><small>%</small></div><span>Ready for Media</span></div></div>'
+   +'<p class="msg" id="msg"></p><p class="tally" id="tally"></p><button class="btn" id="doneBtn" type="button" data-act="celebrate" hidden>Tell your agent you\'re ready</button></section>';
+  h+='<section class="card shoot" id="shoot">'+shootInner()+'</section>';
+  h+='<section class="card top5 rise'+(state.top5?' open':'')+'" style="--i:2;margin-top:16px" id="top5"><button class="top5-h" type="button" id="top5H" aria-expanded="'+(state.top5?'true':'false')+'">'+tile('top')
+   +'<span class="tx"><b>Top 5 Quick Recommendations</b><small>The essentials, up front</small></span>'+CHEV+'</button><div class="top5-body"><div><ol>'
+   +TOP5.map(function(t){return '<li>'+t+'</li>'}).join('')+'</ol></div></div></section>';
+  h+='<div class="gh rise" style="--i:3">Checklist</div><ul class="list rise" style="--i:3">';
+  CATS.forEach(function(c){
+    var k=count(c);
+    h+='<li><button class="row" type="button" data-go="'+c.key+'">'+tile(c.key)+'<span class="rt"><b>'+c.title+'</b><small>'+c.sub+'</small><span class="mini" style="display:block"><i data-bar="'+c.key+'"></i></span></span>'
+     +'<span class="rc"><span data-count="'+c.key+'">'+k.d+'/'+k.t+'</span>'+CHEV+'</span></button></li>';
+  });
+  h+='</ul>';
+  return h;
+}
+function catHTML(c){
+  var h='<header class="lt rise"><div><p class="eyebrow">Category '+c.num+'</p><h1>'+c.title+'</h1></div>'+tile(c.key)+'</header>';
+  h+='<section class="card sum rise" style="--i:1"><div class="top"><span>'+c.sub+'</span><b id="hcount"></b></div><div class="hbar"><i id="hbar"></i></div></section>';
+  c.sections.forEach(function(s,si){
+    var k=secCount(c,si);
+    h+='<div class="gh rise" style="--i:'+(si+2)+'">'+s.t+'<small data-sc="'+c.key+'-'+si+'">'+k.d+' of '+k.t+'</small></div><ul class="list rise" style="--i:'+(si+2)+'">';
+    s.items.forEach(function(it){
+      var on=!!state.done[it.id];
+      h+='<li><button class="item'+(on?' done':'')+'" type="button" role="checkbox" aria-checked="'+on+'" data-id="'+it.id+'" data-cat="'+c.key+'"><span class="box"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9"/></svg></span><span class="txt">'+it.t+'</span></button>'+whyHTML(it.id)+'</li>';
+    });
+    h+='</ul>';
+  });
+  return h;
+}
+function tabsHTML(){
+  var items=[{k:'home',l:'Home',i:'home',c:['#E46029','#fff']}].concat(CATS.map(function(c){return {k:c.key,l:c.key==='wrap'?'Wrap-up':c.title,i:c.key,c:TILE[c.key]}}));
+  return items.map(function(t){return '<button class="tab" type="button" data-tab="'+t.k+'" style="--tc:'+t.c[0]+';--tg:'+t.c[1]+'"><span class="ti">'+ico(t.i)+'</span><span>'+t.l+'</span></button>'}).join('');
+}
+
+/* ---------- updates ---------- */
+var shownPct=0;
+function tween(to){
+  var el=cur('#pctNum');if(!el)return;
+  if(reduce){el.textContent=to;shownPct=to;return}
+  var from=shownPct,t0=performance.now(),dur=1000;
+  function step(t){var k=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-k,3);el.textContent=Math.round(from+(to-from)*e);if(k<1)requestAnimationFrame(step);else shownPct=to}
+  requestAnimationFrame(step);
+}
+function message(p){
+  if(p===0)return "Tap a room below to begin. Let's make your home sparkle.";
+  if(p<35)return 'A lovely start. Keep going, room by room.';
+  if(p<70)return 'Looking better already!';
+  if(p<100)return 'Almost there. Just a few finishing touches.';
+  return 'Camera-ready. Your photographer will love it.';
+}
+function updateAll(){
+  var t=totals();
+  refreshShoot();
+  var bar=cur('#ringBar');if(bar)bar.style.strokeDashoffset=String(100-t.p);
+  if(cur('#pctNum'))tween(t.p);
+  var m=cur('#msg');if(m)m.textContent=message(t.p);
+  var ta=cur('#tally');if(ta)ta.textContent=t.d+' of '+t.t+' tasks complete';
+  var db=cur('#doneBtn');if(db)db.hidden=t.p<100;
+  CATS.forEach(function(c){
+    var k=count(c),pc=k.t?Math.round(k.d/k.t*100):0;
+    var b=cur('[data-bar="'+c.key+'"]');if(b)b.style.width=pc+'%';
+    var n=cur('[data-count="'+c.key+'"]');if(n)n.textContent=k.d+'/'+k.t;
+    var tab=$('[data-tab="'+c.key+'"]');if(tab)tab.classList.toggle('done',k.d===k.t);
+    if(view===c.key){
+      var hb=cur('#hbar');if(hb)hb.style.width=pc+'%';
+      var hc=cur('#hcount');if(hc)hc.textContent=k.d+' of '+k.t;
+      c.sections.forEach(function(s,si){var sc=cur('[data-sc="'+c.key+'-'+si+'"]');if(sc){var q=secCount(c,si);sc.textContent=q.d+' of '+q.t}});
+    }
+  });
+}
+var toastT;
+function toast(msg){var el=$('#toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){el.classList.remove('show')},2600)}
+
+/* ---------- shoot date ---------- */
+function parseYMD(v){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(v||'');return m?new Date(+m[1],+m[2]-1,+m[3]):null}
+function todayStart(){var d=new Date();return new Date(d.getFullYear(),d.getMonth(),d.getDate())}
+function ymd(d){var m=d.getMonth()+1,x=d.getDate();return d.getFullYear()+'-'+(m<10?'0':'')+m+'-'+(x<10?'0':'')+x}
+function daysUntil(v){var d=parseYMD(v);return d?Math.round((d-todayStart())/864e5):null}
+function fmtDate(v,long){var d=parseYMD(v);return d?d.toLocaleDateString(undefined,long?{weekday:'long',month:'long',day:'numeric'}:{weekday:'short',month:'short',day:'numeric'}):''}
+function shootInner(){
+  var d=daysUntil(state.shoot),t=totals(),left=t.t-t.d;
+  var inp='<input class="dateinp" type="date" id="shootDate" min="'+ymd(todayStart())+'" value="'+(state.shoot||'')+'" aria-label="Shoot date">';
+  if(d===null)return '<div class="shoot-h">'+tile('cal')+'<span class="tx"><b>When is your shoot?</b><small>Pick a date to start your countdown</small></span></div><label class="datepick"><span>Choose shoot date</span>'+inp+'</label>';
+  if(d<0)return '<div class="shoot-h">'+tile('cal')+'<span class="tx"><b>Your shoot date has passed</b><small>'+fmtDate(state.shoot)+'</small></span></div><div class="shoot-f"><label class="datepick ghost"><span>Pick a new date</span>'+inp+'</label><button class="lnk" type="button" data-act="shoot-clear">Remove</button></div>';
+  var big,unit,w='';
+  if(d>1){big=String(d);unit='days to go'}else if(d===1){big='1';unit='day to go'}else{big='Today';unit="it's shoot day";w=' w'}
+  var tk=left+' task'+(left===1?'':'s');
+  var pace=left===0?"All tasks are done. You're ready.":(d===0?tk+' left for today.':tk+' left. About '+Math.ceil(left/d)+' a day keeps you on track.');
+  return '<div class="shoot-h">'+tile('cal')+'<span class="tx"><b>Shoot day</b><small>'+fmtDate(state.shoot)+'</small></span><span class="cd"><em class="'+w.trim()+'">'+big+'</em><small>'+unit+'</small></span></div>'
+   +'<p class="pace">'+pace+'</p><div class="shoot-f"><label class="datepick ghost"><span>Change date</span>'+inp+'</label><button class="lnk" type="button" data-act="shoot-clear">Remove</button></div>';
+}
+function refreshShoot(force){var sc=cur('#shoot');if(!sc)return;if(!force&&sc.contains(document.activeElement))return;sc.innerHTML=shootInner()}
+
+/* ---------- celebration ---------- */
+function agentMsg(){return "Hi! I've finished every item on my Home Prep Guide and my home is ready for photos"+(state.shoot?" on "+fmtDate(state.shoot,true):"")+". Let me know if there is anything else I should do before the shoot."}
+function confetti(){
+  if(reduce)return;
+  var cv=$('#conf'),ctx=cv.getContext('2d'),dpr=window.devicePixelRatio||1,W=window.innerWidth,H=window.innerHeight;
+  cv.width=W*dpr;cv.height=H*dpr;ctx.scale(dpr,dpr);
+  var cols=['#E46029','#FFA99F','#F5D194','#E39C3B','#98D3D3','#C5CCF1','#316946'],ps=[],i;
+  for(i=0;i<120;i++)ps.push({x:W/2+(Math.random()-.5)*120,y:H*.42,vx:(Math.random()-.5)*15,vy:-Math.random()*15-4,w:6+Math.random()*6,h:9+Math.random()*9,r:Math.random()*6,vr:(Math.random()-.5)*.35,c:cols[i%cols.length]});
+  var t0=performance.now(),win=$('#win');
+  function f(t){
+    var age=t-t0;ctx.clearRect(0,0,W,H);
+    ps.forEach(function(q){q.vy+=.36;q.vx*=.992;q.x+=q.vx;q.y+=q.vy;q.r+=q.vr;ctx.save();ctx.translate(q.x,q.y);ctx.rotate(q.r);ctx.fillStyle=q.c;ctx.globalAlpha=Math.max(0,1-age/3600);ctx.fillRect(-q.w/2,-q.h/2,q.w,q.h);ctx.restore()});
+    if(age<3600&&!win.hidden)requestAnimationFrame(f);else ctx.clearRect(0,0,W,H);
+  }
+  requestAnimationFrame(f);
+}
+function celebrate(){var w=$('#win');$('#agentMsg').textContent=agentMsg();w.hidden=false;confetti();var b=$('.win .btn');if(b)b.focus()}
+function closeWin(){$('#win').hidden=true}
+function copyMsg(){
+  var fb=function(){try{var n=$('#agentMsg'),r=document.createRange();r.selectNodeContents(n);var sel=getSelection();sel.removeAllRanges();sel.addRange(r)}catch(x){}toast('Message selected. Press and hold to copy.')};
+  try{navigator.clipboard.writeText(agentMsg()).then(function(){toast('Message copied')},fb)}catch(x){fb()}
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!$('#win').hidden)closeWin()});
+document.addEventListener('change',function(e){var t=e.target;if(t&&t.id==='shootDate'){state.shoot=parseYMD(t.value)?t.value:null;save();refreshShoot(true)}});
+
+/* ---------- navigation ---------- */
+function pageHTML(v){
+  if(v==='home')return homeHTML();
+  if(v==='contact')return contactPageHTML();
+  return catHTML(CATS.filter(function(x){return x.key===v})[0]);
+}
+function show(v,first){
+  if(v==='contact'&&view!=='contact')prevView=view;
+  var from=view;view=v;
+  var pages=$$('.page',stage);
+  pages.forEach(function(p,i){if(i<pages.length-1)p.remove()});
+  var old=stage.lastElementChild;
+  var next=document.createElement('div');next.className='page';
+  var th=THEME[v];
+  next.style.cssText=th?'--acc:'+th.acc+';--acc-ink:'+th.ink+';--acc-text:'+th.txt:'--wp:0%';
+  next.innerHTML='<div class="inner">'+pageHTML(v)+'</div>';
+  $$('.tab').forEach(function(t){if(t.dataset.tab===v)t.setAttribute('aria-current','page');else t.removeAttribute('aria-current')});
+  var fwd=ORDER.indexOf(v)>=ORDER.indexOf(from);
+  var y=window.pageYOffset||0;
+  stage.appendChild(next);
+  shownPct=0;
+  if(old&&!first&&v!==from&&!reduce&&next.animate){
+    if(old.getAnimations)old.getAnimations().forEach(function(a){a.cancel()});
+    old.style.position='absolute';old.style.left='0';old.style.right='0';old.style.top=(-y)+'px';
+    window.scrollTo(0,0);
+    var opt={duration:440,easing:'cubic-bezier(.32,.72,0,1)'},topEl=fwd?next:old;
+    topEl.style.zIndex='2';topEl.style.boxShadow='0 0 40px rgba(0,0,0,.28)';
+    var a1=next.animate(fwd?[{transform:'translateX(100%)'},{transform:'translateX(0)'}]:[{transform:'translateX(-28%)',opacity:.6},{transform:'translateX(0)',opacity:1}],opt);
+    var a2=old.animate(fwd?[{transform:'translateX(0)',opacity:1},{transform:'translateX(-28%)',opacity:.6}]:[{transform:'translateX(0)'},{transform:'translateX(100%)'}],opt);
+    var done=function(){if(old.parentNode)old.remove();next.style.zIndex='';next.style.boxShadow=''};
+    Promise.all([a1.finished,a2.finished]).then(done,done);
+    setTimeout(done,600);
+  }else{
+    if(old&&old!==next)old.remove();
+    window.scrollTo(0,0);
+  }
+  requestAnimationFrame(function(){requestAnimationFrame(updateAll)});
+}
+
+/* ---------- events ---------- */
+document.addEventListener('click',function(e){
+  var t=e.target;
+  var go=t.closest('[data-go]');if(go){show(go.dataset.go);return}
+  if(t.id==='shootDate'){try{if(t.showPicker)t.showPicker()}catch(x){}return}
+  var wt=t.closest('.whytog');
+  if(wt){var li=wt.closest('li'),o=!li.classList.contains('open');li.classList.toggle('open',o);wt.setAttribute('aria-expanded',String(o));return}
+  if(t.closest('[data-back]')){show(prevView);return}
+  var ts=t.closest('[data-theme-set]');
+  if(ts){state.theme=ts.dataset.themeSet;save();applyTheme();$$('[data-theme-set]').forEach(function(b){b.setAttribute('aria-pressed',String(b===ts))});return}
+  var tab=t.closest('[data-tab]');if(tab){show(tab.dataset.tab);return}
+  var it=t.closest('.item');
+  if(it){
+    var id=it.dataset.id,on=!state.done[id];
+    if(on)state.done[id]=1;else delete state.done[id];
+    it.classList.toggle('done',on);it.setAttribute('aria-checked',String(on));
+    if(on){it.classList.remove('pop');void it.offsetWidth;it.classList.add('pop')}
+    save();updateAll();
+    if(on){
+      var c=CATS.filter(function(x){return x.key===it.dataset.cat})[0],k=count(c),tt=totals();
+      if(tt.d===tt.t)celebrate();
+      else if(k.d===k.t)toast(c.title+' is camera-ready.');
+    }
+    return;
+  }
+  if(t.closest('#top5H')){
+    var box=t.closest('#top5');state.top5=!box.classList.contains('open');box.classList.toggle('open',state.top5);t.closest('#top5H').setAttribute('aria-expanded',String(state.top5));save();return;
+  }
+  var cp=t.closest('[data-copy]');
+  if(cp){
+    var txt=cp.dataset.copy,what=cp.dataset.what||'Text';
+    var fallback=function(){try{var n=cp.closest('li').querySelector('.val'),r=document.createRange();r.selectNodeContents(n);var s=getSelection();s.removeAllRanges();s.addRange(r)}catch(x){}toast('Number selected. Press and hold to copy.')};
+    try{navigator.clipboard.writeText(txt).then(function(){toast(what+' copied')},fallback)}catch(x){fallback()}
+    return;
+  }
+  var act=t.closest('[data-act]');
+  if(act){
+    var a=act.dataset.act,foot=act.closest('#foot');
+    if(a==='intro'){openIntro()}
+    else if(a==='celebrate'){celebrate()}
+    else if(a==='win-close'){closeWin()}
+    else if(a==='copy-msg'){copyMsg()}
+    else if(a==='shoot-clear'){state.shoot=null;save();refreshShoot(true)}
+    else if(a==='reset'){foot.innerHTML='<div class="confirm"><span>Clear all checkmarks?</span><button type="button" class="danger" data-act="reset-yes">Yes, reset</button><button type="button" data-act="reset-no">Keep them</button></div>'}
+    else if(a==='reset-no'){foot.outerHTML=footHTML()}
+    else if(a==='reset-yes'){state.done={};save();show(view);toast('Checklist reset')}
+  }
+});
+
+/* ---------- onboarding ---------- */
+var ob=$('#ob'),track=$('#obTrack'),dots=$$('#obDots i'),nextBtn=$('#obNext'),idx=0;
+function setIdx(i){idx=i;dots.forEach(function(d,n){d.classList.toggle('on',n===i)});nextBtn.textContent=i===2?'Start prepping':'Continue'}
+track.addEventListener('scroll',function(){var i=Math.round(track.scrollLeft/Math.max(1,track.clientWidth));if(i!==idx)setIdx(Math.max(0,Math.min(2,i)))},{passive:true});
+nextBtn.addEventListener('click',function(){if(idx<2)track.scrollTo({left:(idx+1)*track.clientWidth,behavior:reduce?'auto':'smooth'});else finishIntro()});
+$('#obSkip').addEventListener('click',finishIntro);
+function finishIntro(){state.seen=true;save();ob.classList.add('out');setTimeout(function(){ob.hidden=true},500)}
+function openIntro(){ob.hidden=false;ob.classList.remove('out');track.scrollLeft=0;setIdx(0);window.scrollTo(0,0)}
+
+/* ---------- boot ---------- */
+$('#tabs').innerHTML=tabsHTML();
+show('home',true);
+if(state.seen)ob.hidden=true;
+})();
+</script>
+
+<script>
+if('serviceWorker' in navigator && location.protocol.indexOf('http')===0){
+  window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})});
+}
+</script>
+</body>
+</html>
